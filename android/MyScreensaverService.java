@@ -6,9 +6,14 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
+
+
 public class MyScreensaverService extends DreamService {
     private String screensaverUrl;
     private WebView webView;
+    private SharedPreferences sharedPreferences;
+
 
     @Override
     public void onCreate() {
@@ -26,12 +31,20 @@ public class MyScreensaverService extends DreamService {
         // Enable native storage access
         webView.getSettings().setAllowContentAccess(true);
         webView.getSettings().setDatabaseEnabled(true);
+
+        sharedPreferences = getSharedPreferences("ScreensaverSettings", MODE_PRIVATE);
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // Retrieve the URL from the Intent
-        screensaverUrl = intent.getStringExtra("url");
+        // Retrieve the URL from the Intent and store it in SharedPreferences
+        String screensaverUrl = intent.getStringExtra("url");
+        if (screensaverUrl != null && !screensaverUrl.isEmpty()) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("screensaverUrl", screensaverUrl);
+            editor.apply();
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -46,12 +59,17 @@ public class MyScreensaverService extends DreamService {
         webView.loadUrl(screensaverUrl); // Use the passed URL
     }
 
+
     @Override
     public void onDreamingStarted() {
         super.onDreamingStarted();
-        // Load the URL when the screensaver starts
-        webView.loadUrl(screensaverUrl);
+        // Load the URL from SharedPreferences when the screensaver starts
+        String screensaverUrl = sharedPreferences.getString("screensaverUrl", "");
+        if (!screensaverUrl.isEmpty()) {
+            webView.loadUrl(screensaverUrl);
+        }
     }
+
 
     @Override
     public void onDreamingStopped() {
@@ -69,3 +87,5 @@ public class MyScreensaverService extends DreamService {
         webView.destroy();
     }
 }
+
+
