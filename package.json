@@ -1,0 +1,29 @@
+{
+    "name": "cordova-plugin-myscreensaver",
+    "version": "1.0.0",
+    "description": "A Cordova plugin to set device screensaver",
+    "cordova": {
+      "id": "cordova-plugin-myscreensaver",
+      "platforms": ["android"]
+    },
+    "main": "www/wallpaperSetter.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git"
+    },
+    "keywords": [
+      "cordova",
+      "screensaver",
+      "android"
+    ],
+    "license": "MIT",
+    "dependencies": {
+    },
+    "devDependencies": {
+    },
+    "peerDependencies": {
+    }
+  }
+  
