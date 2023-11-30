@@ -21,8 +21,8 @@
         </js-module>
 
         <!-- Define the Java source files -->
-        <source-file src="src/android/MyScreensaverPlugin.java" target-dir="src/my/screensaver/plugin" />
-        <source-file src="src/android/MyScreensaverService.java" target-dir="src/my/screensaver/plugin" />
+        <source-file src="android/MyScreensaverPlugin.java" target-dir="src/my/screensaver/plugin" />
+        <source-file src="android/MyScreensaverService.java" target-dir="src/my/screensaver/plugin" />
 
         <!-- Specify permissions required by the plugin (if any) -->
         <uses-permission android:name="android.permission.BIND_DREAM_SERVICE" />
